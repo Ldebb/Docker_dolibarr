@@ -1,0 +1,28 @@
+version: "3.4"services:
+ app:
+   image: "kad75/dolibarr:firsttry"
+   # build: .
+   ports:
+     - "80:80"
+   environment: {}
+   networks:
+     - dolibarr_net
+   volumes:
+     - dolibarr_conf:/var/www/html/htdocs/conf
+     - dolibarr_documents:/var/www/html/htdocs/documents
+ db:
+   image: "mariadb:10.3"
+   # build: mariadb/ + mariadb/Dockerfile
+   environment:
+     MYSQL_ROOT_PASSWORD: abc
+     MYSQL_USER: dolibarr
+     MYSQL_PASSWORD: abc
+     MYSQL_DATABASE: dolibarr
+   networks:
+     - dolibarr_net
+networks:
+ dolibarr_net: {}
+# volumes nommes de docker (k8s: emptyDir)
+volumes:
+ dolibarr_conf: {}
+ dolibarr_documents: {}
